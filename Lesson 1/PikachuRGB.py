@@ -1,0 +1,16 @@
+import cv2
+import os
+image = cv2.imread("pikachuimage.jpg", 1)
+B,G,R = cv2.split(image)
+cv2.imshow("originalimage", image)
+cv2.waitKey(0)
+cv2.imshow("Blue Saturation Image", B)
+cv2.imwrite("PikaBlue.png", B)
+cv2.waitKey(0)
+cv2.imshow("Red Saturation Image", R)
+cv2.imwrite("PikaRed.png", R)
+cv2.waitKey(0)
+cv2.imshow("Green Saturation Image", G)
+cv2.imwrite("PikaGreen.png", G)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
