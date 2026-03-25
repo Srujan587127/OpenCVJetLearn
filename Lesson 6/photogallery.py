@@ -5,8 +5,8 @@ from PIL import Image, ImageTk
 
 image_files = []
 
-for file in os.listdir("."): 
-    if file.endswith(".jpg") or file.endswith("png") or file.endswith(".jpeg"):
+for file in os.listdir("."):
+    if file.endswith((".jpg", ".png", ".jpeg")):
         image_files.append(file)
 
 current_image = 0
@@ -15,7 +15,7 @@ root = Tk()
 root.title("Photo Gallery with OpenCV")
 
 def load_image():
-    global Photo
+    global photo
     image_path = os.path.join(image_files[current_image])
     img = cv2.imread(image_path)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -40,19 +40,20 @@ def prev_image():
     load_image()
 
 def grayscale():
-    global Photo
+    global photo
     image_path = os.path.join(image_files[current_image])
     img = cv2.imread(image_path)
-    gray = cv2.cvtColor(img, cv2.Color_BGR2GRAY)
-    gray = cv2.cvtColor(gray, cv2.Color_GRAY2RGB)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(gray, cv2.COLOR_GRAY2RGB)
     img = Image.fromarray(gray)
     img = img.resize((500, 400))
-    photo = ImageTk.PhtoImage(img)
+    photo = ImageTk.PhotoImage(img)
     label.config(image = photo)
     label.image = photo
 
 label = Label(root)
 label.pack()
+load_image()
 prev_btn = Button(root, text = "Previous", command=prev_image)
 prev_btn.pack(side = LEFT, padx = 10, pady = 10)
 
