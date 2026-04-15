@@ -30,7 +30,7 @@ for i in range(60):
 
 background = np.flip(background, axis = 1)
 
-delay = 0.5
+delay = 1
 frame_count = 0
 
 while capture_video.isOpened():
@@ -40,9 +40,9 @@ while capture_video.isOpened():
 
     frame_count +=1
     img = np.flip(img, axis = 1)
-    gsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-    lower_red1 = np.aray([0,120,70])
+    lower_red1 = np.array([0,120,70])
     upper_red1 = np.array([10,255,255])
     mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
 
@@ -53,8 +53,8 @@ while capture_video.isOpened():
     mask = mask1 + mask2
 
     kernel = np.ones((3,3), np.uint8)
-    mask = cv2.morphologyEX(mask, cv2.MORPH_OPEN, kernel)
-    mask = cv2.dilate(mask, kernal)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+    mask = cv2.dilate(mask, kernel)
 
     mask_inv = cv2.bitwise_not(mask)
     res1 = cv2.bitwise_and(background, background, mask=mask)
