@@ -5,12 +5,12 @@ import sys
 
 
 cap = cv2.VideoCapture(0)
-bg = cv2.imread("background.jpg")
+bg = cv2.imread("spacebackground.jpg")
 bg = cv2.resize(bg, (640, 480))
 mp_selfie = mp.solutions.selfie_segmentation
 segment = mp_selfie.SelfieSegmentation(model_selection = 1)
 while True:
-    ret, frame = cap.read()
+    ret, frame = cap.read()   
     frame = cv2.resize(frame, (640,480))
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     result = segment.process(rgb)
@@ -19,5 +19,5 @@ while True:
     cv2.imshow("Virtual Background", output)
     if cv2.waitKey(1) & 0xFF ==ord("q"):
         break
-    cap.release()
-    cv2.destroyAllWindows()
+cap.release()
+cv2.destroyAllWindows()
