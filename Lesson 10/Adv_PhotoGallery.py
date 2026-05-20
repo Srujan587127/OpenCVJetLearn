@@ -53,3 +53,56 @@ def cartoon():
     cartoon_img = cv2.bitwise_and(color, color, mask=edges)
 
     show_image(cartoon_img)
+
+def reset():
+    show_image(original_img)
+
+def save_image():
+    global display_img
+
+    file_path = filedialog.asksaveasfilename(
+        defaultextension = " .jpg",
+        filetypes = [("JPEG files", "*jpeg"), ("PNG files", "*.png")]
+    )
+
+    if file_path:
+        cv2.imwrite(file_path, display_img)
+        print("Image Saved Successfully!")
+
+panel = Label(root)
+panel.pack(pady = 20)
+
+frame_images = Frame(root)
+frame_images.pack(pady = 10)
+
+Button(frame_images, text = "Image 1", command = lambda: load_image("beach.jpg")).grid(row = 0, column = 0, padx = 5) 
+
+Button(frame_images, text = "Image 2", command = lambda: load_image("catbackgorund.jpg")).grid(row = 0, column = 1, padx = 5)
+
+Button(frame_images, text = "Image 3", command = lambda: load_image("field.jpg")).grid(row = 0, column = 2, padx = 5)
+
+Button(frame_images, text = "Image 4", command = lambda: load_image("lake.jpg")).grid(row = 0, column = 3, padx = 5)
+
+Button(frame_images, text = "Image 5", command = lambda: load_image("ocean.jpg")).grid(row = 0, column = 4, padx = 5)
+
+frame_filters= Frame(root)
+frame_filters.pack(pady = 20)
+
+Button(frame_filters, text = "Grayscale", command = grayscale).grid(row = 0, column = 0, padx = 5)
+
+Button(frame_filters, text = "Blur", command = blur).grid(row = 0, column = 1, padx = 5)
+
+Button(frame_filters, text = "Edge", command = edge).grid(row = 0, column = 2, padx = 5)
+
+Button(frame_filters, text = "Cartoon", command = cartoon).grid(row = 0, column = 3, padx = 5)
+
+Button(frame_filters, text = "Reset", command = reset).grid(row = 0, column = 4, padx = 5)
+
+Button(frame_filters, text = "Save Image", command = save_image, bg = "green", fg = "white").pack(pady = 15)
+
+load_image("img1.jpg")
+root.mainloop()
+
+
+
+
