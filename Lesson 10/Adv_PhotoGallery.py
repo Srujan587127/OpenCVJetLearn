@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 
 root = tk.Tk()
 root.title("Image Editor")
-root.geometry
+root.geometry("800x700")
 img = None
 original_img = None
 display_img = None
@@ -26,7 +26,7 @@ def show_image(image):
 def load_image(path):
     global img, original_img
     img = cv2.imread(path)
-    original_image = img.copy()
+    original_img = img.copy()
 
     show_image(img)
 
@@ -35,7 +35,7 @@ def grayscale():
     show_image(cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR))
 
 def blur():
-    blurred = cv2.GaussianBLlur(img, (15,15), 0)
+    blurred = cv2.GaussianBlur(img, (15,15), 0)
     show_image(blurred)
 
 def edge():
@@ -43,8 +43,8 @@ def edge():
     show_image(cv2.cvtColor(edges, cv2.COLOR_GRAY2BGR))
 
 def cartoon():
-    gray = cv2.cvtCOLOR(img, cv2.COLOR_BGR2GRAY)
-    gray = cv2.medianBLUR(gray, 5)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray = cv2.medianBlur(gray, 5)
 
     edges = cv2.adaptiveThreshold(
         gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 9
@@ -98,9 +98,9 @@ Button(frame_filters, text = "Cartoon", command = cartoon).grid(row = 0, column 
 
 Button(frame_filters, text = "Reset", command = reset).grid(row = 0, column = 4, padx = 5)
 
-Button(frame_filters, text = "Save Image", command = save_image, bg = "green", fg = "white").pack(pady = 15)
+Button(frame_filters, text = "Save Image", command = save_image, bg = "green", fg = "white").grid(row = 1, column = 2, pady = 15)
 
-load_image("img1.jpg")
+load_image("beach.jpg")
 root.mainloop()
 
 
